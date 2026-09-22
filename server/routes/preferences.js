@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const userPreferences = {};
+const userPreferences = require("../data/preferences");
 
 router.post("/", (req, res) => {
   const { email, interests } = req.body;

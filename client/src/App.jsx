@@ -37,9 +37,15 @@ function App() {
 
     const fetchNews = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/news"
-        );
+        const user = JSON.parse(
+        localStorage.getItem("user")
+      );
+
+    const response = await axios.get(
+      `http://localhost:5000/api/news?email=${encodeURIComponent(
+       user.email
+    )}`
+  );
 
         setNews(response.data);
       } catch (error) {

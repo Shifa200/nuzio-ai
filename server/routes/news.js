@@ -2,6 +2,9 @@ const express = require("express");
 
 const router = express.Router();
 
+const userPreferences =
+  require("../data/preferences");
+
 const news = [
   {
     id: 1,
@@ -30,7 +33,22 @@ const news = [
 ];
 
 router.get("/", (req, res) => {
-  res.json(news);
+  const email = req.query.email;
+
+  // If no email is provided, return all news
+  if (!email) {
+    return res.json(news);
+  }
+
+  const interests = userPreferences[email] || [];
+
+  // Put matching stories first
+  const personalizedNews = news.filter((item) =>
+  interests.includes(item.category)
+);
+
+res.json(personalizedNews);
+
 });
 
 module.exports = router;
