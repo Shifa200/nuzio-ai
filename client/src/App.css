@@ -457,3 +457,24 @@
 .play-button.playing {
   transform: scale(1.05);
 }
+
+.selected-interests {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin: 18px 0 24px;
+}
+
+.selected-interests span {
+  padding: 7px 11px;
+
+  border: 1px solid #29292f;
+  border-radius: 999px;
+
+  color: #9b9ba5;
+
+  font-size: 10px;
+  letter-spacing: 0.8px;
+}

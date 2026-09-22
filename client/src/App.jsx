@@ -272,6 +272,14 @@ function App() {
         <div className="news-intro">
           <p>YOUR PERSONALIZED BRIEF</p>
 
+          <div className="selected-interests">
+            {selectedInterests.map((interest) => (
+               <span key={interest}>
+                 {interest}
+               </span>
+            ))}
+          </div>
+
           <h1>
             Good morning.
             <br />
