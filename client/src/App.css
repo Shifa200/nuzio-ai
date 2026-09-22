@@ -453,3 +453,7 @@
   opacity: 0.35;
   cursor: not-allowed;
 }
+
+.play-button.playing {
+  transform: scale(1.05);
+}

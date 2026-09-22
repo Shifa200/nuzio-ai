@@ -18,6 +18,8 @@ function App() {
   const [selectedInterests, setSelectedInterests] =
     useState([]);
 
+  const [playingId, setPlayingId] = useState(null);
+
   const interests = [
     "AI & TECHNOLOGY",
     "STARTUPS",
@@ -114,6 +116,53 @@ function App() {
       return [...current, interest];
     });
   };
+
+  // -------------------------------
+  // SPEECH FUNCTION
+  // -------------------------------
+
+   const togglePlay = (item) => {
+  if (!("speechSynthesis" in window)) {
+    alert(
+      "Your browser does not support audio playback."
+    );
+    return;
+  }
+
+  // If this story is currently playing,
+  // stop it.
+  if (playingId === item.id) {
+    window.speechSynthesis.cancel();
+    setPlayingId(null);
+    return;
+  }
+
+  // Stop any other story that may be playing.
+  window.speechSynthesis.cancel();
+
+  const text = `${item.title}. ${item.summary}`;
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.rate = 0.95;
+  speech.pitch = 1;
+  speech.volume = 1;
+
+  speech.onstart = () => {
+    setPlayingId(item.id);
+  };
+
+  speech.onend = () => {
+    setPlayingId(null);
+  };
+
+  speech.onerror = () => {
+    setPlayingId(null);
+  };
+
+  window.speechSynthesis.speak(speech);
+};
+
 
   // -----------------------------
   // SAVE PREFERENCES
@@ -253,9 +302,14 @@ function App() {
 
                 <button
                   type="button"
-                  className="play-button"
+                  className={`play-button ${
+                    playingId === item.id
+                    ? "playing"
+                    : ""
+                  }`}
+                  onClick={() => togglePlay(item)}
                 >
-                  ▶
+                  {playingId === item.id ? "⏹" : "▶"}
                 </button>
               </div>
             </div>
