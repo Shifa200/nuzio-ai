@@ -2,8 +2,9 @@ const express = require("express");
 
 const router = express.Router();
 
-const userPreferences =
-  require("../data/preferences");
+const {
+    userPreferences ,
+} = require("../data/preferences");
 
 const news = [
   {

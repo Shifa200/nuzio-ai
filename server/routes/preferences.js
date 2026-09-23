@@ -2,7 +2,10 @@ const express = require("express");
 
 const router = express.Router();
 
-const userPreferences = require("../data/preferences");
+const {
+  userPreferences,
+  savePreferences,
+} = require("../data/preferences");
 
 router.post("/", (req, res) => {
   const { email, interests } = req.body;
@@ -15,9 +18,11 @@ router.post("/", (req, res) => {
 
   userPreferences[email] = interests;
 
+  savePreferences(userPreferences);
+
   res.json({
     message: "Preferences saved",
-    interests,
+    interest: userPreferences[email],
   });
 });
 
